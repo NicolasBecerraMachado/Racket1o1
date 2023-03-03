@@ -1,0 +1,109 @@
+#lang racket
+
+;c celsius temp to be transformed
+(define (Celsius-to-fahrenheit c) 
+    (+ ( * ( / 9 5) c ) 32)
+)
+
+;m = initial value / n = last value
+;inclusive adding
+(define (addSeries m n)
+  (if (> m n) 0 (+ (addSeries (+ m 1) n) m))
+  )
+
+; r = ratio / o = option
+; o != 0 / area
+; o = 0 / circunference
+(define (circleData r o)
+  (if (equal? o 0)(* 3.14 r r)(* 2 3.14 r))
+  )
+
+; r1 = operand 1 / r2 = operand 2 / o = option
+; o = 0 / add
+; o = 1 / substract
+; o = 2 / product
+; o = 3 / division
+(define (bmath r1 r2 o)
+  (case (+ o)
+       [(0) (+ r1 r2)]
+       [(1) (- r1 r2)]
+       [(2) (* r1 r2)]
+       [(3) (/ r1 r2)]
+       )
+  )
+
+;s = second value ; option
+;o = 0 second to second
+;o = 1 second to minute
+;o = 2 second to hour
+;o = 3 second to day
+;o = 4 second to week
+;o = 5 second to month [30.4375 days]
+;o = 6 second to year [365.25 days]
+;o = 7 second to century
+(define (secondtrans s o)
+  (case (+ o)
+       [(0) s]
+       [(1) (/ s 60)]
+       [(2) (/ s (* 60 60))]
+       [(3) (/ s (* 60 60 24))]
+       [(4) (/ s (* 60 60 24 7))]
+       [(5) (/ s (* 60 60 24 30.4375))]
+       [(6) (/ s (* 60 60 24 365.25))]
+       [(7) (/ s (* 60 60 24 365.25 100))]
+    
+       )
+  )
+
+(define (createnumericdate m d)
+  (+ (* m 100) d)
+  )
+
+(define(zodiacS m d)
+  (if( < (createnumericdate m d) 120) "Capricornio" (
+  (if(and (< (createnumericdate m d) 219)(> (createnumericdate m d) 119)) "Acuario"
+  (if(and (< (createnumericdate m d) 321)(> (createnumericdate m d) 218)) "Piscis" "b"
+  (if(and (< (createnumericdate m d) 420)(> (createnumericdate m d) 320)) "Aries" "c"
+  (if(and (< (createnumericdate m d) 522)(> (createnumericdate m d) 419)) "Tauro" "d"
+  (if(and (< (createnumericdate m d) 621)(> (createnumericdate m d) 521)) "Geminis" "e"
+  (if(and (< (createnumericdate m d) 723)(> (createnumericdate m d) 620)) "Cancer" "f"
+  (if(and (< (createnumericdate m d) 823)(> (createnumericdate m d) 722)) "Leo" "g"
+  (if(and (< (createnumericdate m d) 923)(> (createnumericdate m d) 822)) "Virgo" "h"
+  (if(and (< (createnumericdate m d) 1023)(> (createnumericdate m d) 922)) "Libra" "i"
+  (if(and (< (createnumericdate m d) 1122)(> (createnumericdate m d) 1022)) "Escorpio" "j"
+  (if(and (< (createnumericdate m d) 1222)(> (createnumericdate m d) 1121)) "Sagitario" "k"
+  (if(> (createnumericdate m d) 1221) "Capricornio" "z")
+  ))))))))))))))
+(createnumericdate 12 28)
+(zodiacS 12 28)
+(createnumericdate 1 10)
+(zodiacS 1 10)
+
+
+(secondtrans 930 1)
+(equal? (secondtrans 930 1) 15.5)
+(secondtrans 45 0)
+(equal? (secondtrans 45 0) 45)
+(secondtrans 30000000000 7)
+(equal? (secondtrans 30000000000 7) 9.506426344208686)
+
+
+(Celsius-to-fahrenheit 0)
+(equal? (Celsius-to-fahrenheit 0) 32)
+
+(addSeries 3 5)
+(equal? (addSeries 3 5) 12)
+
+(circleData 1 0)
+(equal? (circleData 1 0) 3.14)
+(circleData 1 1)
+(equal? (circleData 1 1) 6.28)
+        
+(bmath 1 2 0)
+(equal? (bmath 1 2 0) 3)
+(bmath 1 2 1)
+(equal? (bmath 1 2 1) -1)
+(bmath 1 2 2)
+(equal? (bmath 1 2 2) 2)
+(bmath 1 2 3)
+(equal? (bmath 1 2 3) 1/2)
